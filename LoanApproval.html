@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Loan Approval</title>
+
+
+
+    <style>
+
+/* <!--#142F54 this is the code for the dark blue in Diamond Pic --> */
+
+        h1{
+            color: #4694D0;
+
+        }
+        h2{
+            color: #4694D0;
+        }
+        p1{
+            font-size: small;
+        }
+        p{
+            color: #142F54;
+            font-weight: bold;
+            font-size: x-large;
+        }
+
+    </style>
+</head>
+<body>
+<img src="diamondBank.png" height="105" width="479"/>
+
+<h1>Welcome to Diamond Bank Lending</h1>
+
+
+<h2> Please answer the questions below: </h2>
+<form>
+<label>
+    Please enter your salary: <input type="text" value="" id="salary" required min="1" name="salary">
+</label>
+<br/>
+<label>
+    Please enter your credit score: <input type="text" placeholder="---" id="credit" required min="300" max="850" name="credit">
+</label>
+<br/>
+<label>
+    How long have you been employed? (in months) <input type="text" placeholder="---" id="employment" required min="1" name="employment">
+</label>
+<br/>
+<br/>
+<input type="submit">
+
+
+<p></p>
+</form>
+</body>
+<footer>
+    <p1> Thank you for visiting Diamond Bank - Copyright 2019 - All rights reserved. </p1>
+</footer>
+<script src="https://code.jquery.com/jquery-3.4.1.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.1/dist/jquery.validate.js"></script>
+
+<script>
+
+    $(document).ready(init);
+
+
+    function init(){
+        $("button").click(loanApproval);
+
+        var myRules =
+            {
+                salary:{
+                    required:true,
+                    digits:true
+
+                },
+                credit:{
+                    digits: true,
+                    required: true,
+                    min: 300 ,
+                    max: 850,
+
+                },
+                employment:{
+                    digits: true,
+                    required: true,
+
+                }
+
+            };
+
+        // Object containing the error messages
+        var myMessages =
+            {
+                salary:{
+                    required:"Please enter a salary.",
+                    min: "Salary can't be negative."
+
+                },
+                credit:{
+                    required: "You must enter a score",
+                    min: "Must be at least  300",
+                    max: "850 is the highest",
+                    digits: "Please enter grade in digit form. "
+                },
+                employment:{
+                    required: "Please enter at least 1 month",
+                    min: "Please enter at least 1 month"
+                }
+
+            };
+
+        // Object containing the entire validation configuration
+        // Needs submitHandler, rules, and messages properties
+        var config = {
+            rules:myRules,
+            messages: myMessages,
+            submitHandler: loanApproval
+        };
+
+        // Pass the config object to the form's validate() method
+        $("form").validate(config);
+
+
+    }
+
+    function loanApproval(){
+        var salary = $("#salary").val();
+        var credit = $("#credit").val();
+        var employment = $("#employment").val();
+        var approved = "You have been approved!";
+        var declined = "You have been declined!";
+        var decision= true;
+
+        // if (salary <40000){
+        //     if(credit <=600){
+        //         decision = "You have been declined";
+        //         $("p").text("Sorry! " +decision);
+        //     }
+        //     else if(employment > 12){
+        //         decision = "You have been approved";
+        //         $("p").text("Congrats! " + decision);
+        //     }
+        //     else{
+        //         decision= "You have been declined";
+        //         $("p").text( decision);}
+
+        // }
+        // if (salary >= 40000 ) {
+        //     if (credit > 600) {
+        //         decision = "You have been approved";
+        //         $("p").text("Congrats! " + decision);
+        //     }
+        //     else if (employment < 12) {
+        //         decision = "You have been declined!";
+        //         $("p").text("Sorry! " + decision);
+        //     }
+        //     else {
+        //         decision = "You have been approved!";
+        //         $("p").text("Congrats! " + decision);
+        //     }
+        // }
+
+        if (salary <40000){
+                if(employment > 12){
+                decision = "You have been approved";
+                $("p").text("Congrats! " + decision);
+            }
+            else{
+                decision= "You have been declined";
+                $("p").text( decision);}
+
+        }
+        if (salary >= 40000 || employment < 12) {
+            decision = "You have been declined!";
+            $("p").text("Sorry! " + decision);
+        }
+        else {
+            decision = "You have been approved!";
+            $("p").text("Congrats! " + decision);
+        }
+    }
+
+
+
+
+
+
+</script>
+
+
+</html>
